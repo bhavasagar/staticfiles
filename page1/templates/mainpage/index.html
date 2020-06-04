@@ -1,0 +1,155 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Static files in Django</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="{% static 'js/materialize.js'%}"></script>
+  <script src="{% static 'js/init.js'%}"></script>
+  <style>
+    .code{
+      width: 200px;
+      background-color: antiquewhite;
+    }
+    .toggle{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Homepage</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="/about">About</a></li>
+        {%if user.is_authenticated%}
+          <li><a>Hello, {{user.username}}</a></li>
+          <li><a href="logout">Logout</a></li>
+        {%else%}
+          <li><a href="/login">Login</a></li>
+          <li><a href="/register">Register</a></li>
+        {%endif%}
+        <li><a href="/contact">Contact</a></li>
+    </ul>
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <h3 class="header center orange-text" id="head">How to load static files in Django.</h3>
+      <div class="row center">
+        <p class='light'>After googling a long time looking to many websites finally I found this way to add static files to 
+          Django. As a beginner it's very difficult to debug such errors.
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="section">
+
+      <!--   Icon Section   -->
+      <div class="row">
+        <p class="light">Assuming that you have created a Django project and it has some files.</p>
+      </div>
+      <div class="row">
+        <img id="imgdir" class="toggle" src="{%static 'images/dir.jpg'%}" style="height:400px;width:200px;"><br>
+        <button id="btn" onclick="clicked" class='btn'>click here to see my project directory for reference </button>
+      </div>
+      <div class="row">
+        <p><h5 class="light orange-text">Step 1:</h5></p>
+        <p class="light">Open Settings.py in your project directory.</p>
+        <code class='code'>STATICFILES_DIRS = [
+          os.path.join("add your files path here"),  
+      ]</code>
+        <p class='light'>STATICFILES_DIRS is a list of directories which contains paths to your static files. You can use copy path option in properties of folder</p>
+        <img src="{%static 'images/step1.jpg'%}" style="width:750px;height:400px;"><br>
+        <img src="{%static 'images/step1.1.jpg'%}" style="width:200px;height:200px;">
+        <img src="{%static 'images/step1.2.jpg'%}" style="width:200px;height:200px;"><br>
+      </div>
+      <div class="row">
+        <p><h5 class="light orange-text">Step 2:</h5></p>
+        <p class="light">Open urls.py in your project directory. Be carefull it is not urls.py in app directory. And add this to urlpatterns</p>
+        <code class="code">+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)</code>
+        <img src="{%static 'images/step2.jpg'%}" style="width:550px;height:400px;"><br>
+        <p><strong>Note :</strong><bold>Imports must be as shown the image they should not change.</bold></p>
+      </div>
+      <div class="row">
+        <p><h5 class="light orange-text">Step 3:</h5></p>
+        <p class="light">Open HTML page and add this in your first line of code</p>
+        <img id="ref" src="{%static 'images/ref.jpg'%}" style="width:550px;height:400px;"><br>
+      </div>
+      <div class="row">
+        <p><h5 class="light orange-text">Step 4:</h5></p>
+        <p class="light">In your HTML file add this to your <strong>src</strong> and <strong>href</strong> tags having path to static files</p>
+        <p class="light">This works for all CSS,JS and Images</p>
+        <img src="{%static 'images/ref.jpg'%}" style="width:550px;height:400px;"><br>
+      </div>
+      <div class="row">
+        <p><h5 class="light orange-text">Step 5:</h5></p>
+        <p class="light">That's it. You're done. Save your file and load the page to see magic</p>
+      </div>
+      <div class="row">
+        <h3 class="light orange-text">PS: </h3>
+        <p class="light">If you are using VS code editor then you can use relative path option to get relative path.</p>
+        <img src="{%static 'images/relpath.jpg'%}" style="width:550px;height:400px;">
+      </div>
+    </div>
+    <br><br>
+  </div>
+
+  <footer class="page-footer orange">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Blog Bio</h5>
+          <p class="grey-text text-lighten-4">This is just a page to solve problem of static pages.</p>
+
+        </div>
+        <!-- <div class="col l3 s12">
+          <h5 class="white-text">Settings</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Link 1</a></li>
+            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="#!">Link 3</a></li>
+            <li><a class="white-text" href="#!">Link 4</a></li>
+          </ul>
+        </div> -->
+        <!-- <div class="col l3 s12">
+          <h5 class="white-text">Connect</h5>
+          <p>Anytime for doubt solving...contact me</p>
+          <ul>
+            <li><p class="white-text">EmailID</p></li>
+            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="#!">Link 3</a></li>
+            <li><a class="white-text" href="#!">Link 4</a></li>
+          </ul>
+        </div>
+      </div>
+    </div> -->
+    <div class="footer-copyright">
+      <div class="container">
+      Made with <a class="orange-text text-lighten-3" href="#">Love...</a>
+      </div>
+    </div>
+  </footer>
+
+
+  
+  
+  <script> 
+    $(document).ready(function(){
+      $("#btn").click(function(){
+        $('#imgdir').toggle('slow');
+      });
+      }); 
+  </script>
+  </body>
+</html>

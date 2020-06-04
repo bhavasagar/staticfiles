@@ -1,0 +1,48 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+        .body{
+            padding-left: 450px;
+            padding-right: 450px;
+        }
+        #btn{
+            margin-left: 150px;
+        }
+        #pgh{
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    {%if messages%}
+      {%for mess in messsages%}
+        <script> M.toast({html: '{{mess}}', classes: 'rounded', induration:2000} )</script>
+      {%endfor%}
+    {%endif%}
+    <br><br><br>
+    <div class="body">
+    <div class="row">
+        <div class="row">
+            <h3 id="h3">Login</h3>
+        </div>
+        <form class="col s12" method="POST" action="">
+        {% csrf_token %}
+        <div class="row">
+            <div class="input-field col s12">
+            <input id="username" type="text" class="validate" name="username">
+            <label for="username">username</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+            <input id="password" type="password" class="validate" name="password">
+            <label for="password">Password</label>
+            </div>
+        </div>
+        <button type="submit" class="btn" id="btn" >Login</button>
+    </form>
+    </div> 
+    <p id="pgh">Don't have an account,<a href="/register"><strong> Register </strong></a> here!</p>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
